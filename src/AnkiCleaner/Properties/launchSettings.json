@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "https://json.schemastore.org",
+  "profiles": {
+    "Parts: Export": {
+      "commandName": "Project",
+      "commandLineArgs": "parts export C:\\development\\jerriep\\AnkiCleaner\\data\\exports\\Jerrie's_Thai\\deck.json C:\\development\\jerriep\\AnkiCleaner\\data\\parts-of-speech.csv"
+    },
+    "Parts: Import": {
+      "commandName": "Project",
+      "commandLineArgs": "parts import C:\\development\\jerriep\\AnkiCleaner\\data\\parts-of-speech.csv C:\\development\\jerriep\\AnkiCleaner\\data\\exports\\Jerrie's_Thai\\deck.json C:\\development\\jerriep\\AnkiCleaner\\data\\imports\\Jerrie's_Thai\\deck.json"
+    }
+  }
+}
