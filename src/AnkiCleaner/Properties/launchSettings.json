@@ -8,6 +8,22 @@
     "Parts: Import": {
       "commandName": "Project",
       "commandLineArgs": "parts import C:\\development\\jerriep\\AnkiCleaner\\data\\parts-of-speech.csv C:\\development\\jerriep\\AnkiCleaner\\data\\exports\\Jerrie's_Thai\\deck.json C:\\development\\jerriep\\AnkiCleaner\\data\\imports\\Jerrie's_Thai\\deck.json"
+    },
+    "Thai Words: Non-Thai Words: List": {
+      "commandName": "Project",
+      "commandLineArgs": "thaiwords nonthai list C:\\development\\jerriep\\AnkiCleaner\\data\\exports\\Jerrie's_Thai\\deck.json"
+    },
+    "Thai Words: Non-Thai Words: Clean": {
+      "commandName": "Project",
+      "commandLineArgs": "thaiwords nonthai clean C:\\development\\jerriep\\AnkiCleaner\\data\\exports\\Jerrie's_Thai\\deck.json C:\\development\\jerriep\\AnkiCleaner\\data\\imports\\Jerrie's_Thai\\deck.json"
+    },
+    "Thai Words: Non-Thai Words: Export": {
+      "commandName": "Project",
+      "commandLineArgs": "thaiwords nonthai export C:\\development\\jerriep\\AnkiCleaner\\data\\exports\\Jerrie's_Thai\\deck.json C:\\development\\jerriep\\AnkiCleaner\\data\\non-thai-words.csv"
+    },
+    "Thai Words: Non-Thai Words: Import": {
+      "commandName": "Project",
+      "commandLineArgs": "thaiwords nonthai import C:\\development\\jerriep\\AnkiCleaner\\data\\non-thai-words.csv C:\\development\\jerriep\\AnkiCleaner\\data\\exports\\Jerrie's_Thai\\deck.json C:\\development\\jerriep\\AnkiCleaner\\data\\imports\\Jerrie's_Thai\\deck.json"
     }
   }
 }

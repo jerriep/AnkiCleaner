@@ -14,5 +14,23 @@ app.Configure(config =>
             parts.AddCommand<ImportPartsCommand>("import");
         }
     );
+    config.AddBranch(
+        "thaiwords",
+        thaiWords =>
+        {
+            thaiWords.SetDescription("Commands to manage and clean up Thai words");
+
+            thaiWords.AddBranch(
+                "nonthai",
+                nonthaiWords =>
+                {
+                    nonthaiWords.AddCommand<CleanNonThaiWordsCommand>("clean");
+                    nonthaiWords.AddCommand<ListNonThaiWordsCommand>("list");
+                    nonthaiWords.AddCommand<ExportNonThaiWordsCommand>("export");
+                    nonthaiWords.AddCommand<ImportNonThaiWordsCommand>("import");
+                }
+            );
+        }
+    );
 });
 return app.Run(args);

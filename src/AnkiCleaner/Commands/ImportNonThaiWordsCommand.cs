@@ -6,15 +6,16 @@ using System.Text.Json;
 using AnkiCleaner.Models;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Spectre.Console;
 using Spectre.Console.Cli;
 
 namespace AnkiCleaner.Commands;
 
-public class ImportPartsCommand : AsyncCommand<ImportPartsSettings>
+public class ImportNonThaiWordsCommand : AsyncCommand<ImportNonThaiWordsSettings>
 {
     public override async Task<int> ExecuteAsync(
         CommandContext context,
-        ImportPartsSettings settings,
+        ImportNonThaiWordsSettings settings,
         CancellationToken cancellationToken
     )
     {
@@ -27,29 +28,23 @@ public class ImportPartsCommand : AsyncCommand<ImportPartsSettings>
             var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture) { })
         )
         {
-            await foreach (
-                var partOfSpeech in csv.GetRecordsAsync<ExportedPartOfSpeech>(cancellationToken)
-            )
+            await foreach (var word in csv.GetRecordsAsync<ExportedNonThaiWord>(cancellationToken))
             {
-                if (string.IsNullOrEmpty(partOfSpeech.NewValue))
+                var ankiDeckNote = deck.Notes.FirstOrDefault(n =>
+                    string.Equals(n.Id, word.Id, StringComparison.Ordinal)
+                );
+                if (ankiDeckNote == null)
                 {
-                    // Leave part of speech as-is if there is no new value
+                    AnsiConsole.MarkupLine(
+                        $"[red]Could not found {Markup.Escape(word.Id)} ({Markup.Escape(word.Current)})[/]"
+                    );
                     continue;
                 }
 
-                foreach (
-                    var ankiDeckNote in deck.Notes.Where(n =>
-                        string.Equals(
-                            n.Fields[4],
-                            partOfSpeech.CurrentValue,
-                            StringComparison.Ordinal
-                        )
-                    )
-                )
-                {
-                    ankiDeckNote.Fields[4] =
-                        partOfSpeech.NewValue == "-" ? string.Empty : partOfSpeech.NewValue;
-                }
+                ankiDeckNote.Fields[1] = word.New;
+                AnsiConsole.MarkupLine(
+                    $"[green]Updated {Markup.Escape(word.Id)} from {Markup.Escape(word.Current)} to {Markup.Escape(word.New)}[/]"
+                );
             }
         }
 
@@ -81,7 +76,7 @@ public class ImportPartsCommand : AsyncCommand<ImportPartsSettings>
     }
 }
 
-public class ImportPartsSettings : CommandSettings
+public class ImportNonThaiWordsSettings : CommandSettings
 {
     [CommandArgument(0, "<source csv>")]
     [Description("The CSV file containing the cleaned up parts of speech to import")]
