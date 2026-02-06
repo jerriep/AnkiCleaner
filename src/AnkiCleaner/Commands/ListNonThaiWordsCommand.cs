@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Text.Json;
-using System.Text.RegularExpressions;
 using AnkiCleaner.Models;
 using Spectre.Console;
 using Spectre.Console.Cli;
@@ -20,7 +19,7 @@ public partial class ListNonThaiWordsCommand : AsyncCommand<ListNonThaiWordsSett
         );
 
         var cardsWithNonThaiWords = deck.Notes.Where(n =>
-            RegexHelpers.NonThaiWordsRegex().IsMatch(n.Fields[1])
+            RegexHelpers.NonThaiWordsRegex().IsMatch(n.ThaiWord)
         );
 
         var table = new Table();
@@ -32,8 +31,7 @@ public partial class ListNonThaiWordsCommand : AsyncCommand<ListNonThaiWordsSett
 
         foreach (var card in cardsWithNonThaiWords)
         {
-            // Console.WriteLine(card.Fields[1]);
-            table.AddRow(new Text(index++.ToString()), new Text(card.Id), new Text(card.Fields[1]));
+            table.AddRow(new Text(index++.ToString()), new Text(card.Id), new Text(card.ThaiWord));
         }
 
         AnsiConsole.Write(table);

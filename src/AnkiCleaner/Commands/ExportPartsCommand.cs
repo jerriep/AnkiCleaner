@@ -20,7 +20,7 @@ internal class ExportPartsCommand : AsyncCommand<ExportPartsSettings>
         );
 
         var partsOfSpeech = deck
-            .Notes.Select(n => n.Fields[4])
+            .Notes.Select(n => n.PartOfSpeech)
             .Distinct()
             .Select(s => new ExportedPartOfSpeech { CurrentValue = s, NewValue = null });
 

@@ -40,14 +40,14 @@ public class ImportPartsCommand : AsyncCommand<ImportPartsSettings>
                 foreach (
                     var ankiDeckNote in deck.Notes.Where(n =>
                         string.Equals(
-                            n.Fields[4],
+                            n.PartOfSpeech,
                             partOfSpeech.CurrentValue,
                             StringComparison.Ordinal
                         )
                     )
                 )
                 {
-                    ankiDeckNote.Fields[4] =
+                    ankiDeckNote.PartOfSpeech =
                         partOfSpeech.NewValue == "-" ? string.Empty : partOfSpeech.NewValue;
                 }
             }

@@ -72,7 +72,7 @@ public class CleanNonThaiWordsCommand : AsyncCommand<CleanNonThaiWordsSettings>
         var dryRunList = new List<DryRunItem>();
         foreach (var card in cardsWithNonThaiWords)
         {
-            var thaiWord = card.Fields[1];
+            var thaiWord = card.ThaiWord;
             var cleanedWord = thaiWord;
 
             foreach (var cleaner in cleaners)
@@ -86,7 +86,7 @@ public class CleanNonThaiWordsCommand : AsyncCommand<CleanNonThaiWordsSettings>
             }
             else
             {
-                card.Fields[1] = cleanedWord;
+                card.ThaiWord = cleanedWord;
             }
         }
 
